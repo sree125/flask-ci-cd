@@ -2,10 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Dependencies') {
+        stage('Install pip & dependencies') {
             steps {
                 sh '''
-                    python3 -m pip install --user flask
+                    sudo apt update
+                    sudo apt install -y python3-pip
+                    pip3 install --user flask
                 '''
             }
         }
