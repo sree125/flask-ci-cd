@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout Code') {
+        stage('Install Dependencies') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/sree125/flask-ci-cd.git'
+                sh '''
+                    python3 -m pip install --user flask
+                '''
             }
         }
 
@@ -13,6 +14,15 @@ pipeline {
             steps {
                 sh 'python3 app.py'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Flask app ran successfully 🎉'
+        }
+        failure {
+            echo 'Pipeline failed ❌'
         }
     }
 }
