@@ -2,15 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repository') {
+        stage('Checkout Code') {
             steps {
-                git 'https://github.com/sree125/flask-ci-cd.git'
-            }
-        }
-
-        stage('Check Python Version') {
-            steps {
-                sh 'python3 --version'
+                git branch: 'main',
+                    url: 'https://github.com/sree125/flask-ci-cd.git'
             }
         }
 
@@ -18,15 +13,6 @@ pipeline {
             steps {
                 sh 'python3 app.py'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Python script executed successfully 🎉'
-        }
-        failure {
-            echo 'Pipeline failed ❌'
         }
     }
 }
